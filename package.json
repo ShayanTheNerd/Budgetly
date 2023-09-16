@@ -1,0 +1,39 @@
+{
+	"license": "MIT",
+	"homepage": "https://github.com/ShayanTheNerd/budgetly",
+	"readme": "https://github.com/ShayanTheNerd/budgetly#readme",
+	"author": {
+		"name": "Shayan Zamani",
+		"url": "https://shayan-zamani.me/",
+		"email": "sh.zamani384@gmail.com"
+	},
+	"repository": {
+		"type": "git",
+		"directory": "main",
+		"url": "https://github.com/ShayanTheNerd/budgetly"
+	},
+	"bugs": {
+		"email": "sh.zamani384@gmail.com",
+		"url": "https://github.com/ShayanTheNerd/budgetly/issues"
+	},
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"preview": "vite preview",
+		"format": "npx prettier --write ."
+	},
+	"dependencies": {
+		"gsap": "^3.12.2",
+		"vue": "^3.3.4",
+		"vuex": "^4.1.0"
+	},
+	"devDependencies": {
+		"@vitejs/plugin-vue": "^4.3.4",
+		"autoprefixer": "^10.4.15",
+		"postcss": "^8.4.29",
+		"prettier": "3.0.3",
+		"prettier-plugin-tailwindcss": "^0.5.4",
+		"tailwindcss": "^3.3.3",
+		"vite": "^4.4.9"
+	}
+}

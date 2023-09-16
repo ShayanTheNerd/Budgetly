@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	/* Remove default arrows from number inputs */
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+		@apply appearance-none;
+	}
+	input[type='number'] {
+		appearance: textfield;
+		-moz-appearance: textfield;
+	}
+
+	/* Custom scrollbar */
+	html::-webkit-scrollbar {
+		@apply w-3;
+	}
+	html::-webkit-scrollbar-thumb {
+		@apply rounded-[5px] bg-[#94a3b8];
+	}
+	html::-webkit-scrollbar-thumb:hover {
+		@apply bg-[#475569];
+	}
+	html::-webkit-scrollbar-track {
+		@apply bg-[#1e293b];
+	}
+}
+
+@layer components {
+	.hidden-scrollbar {
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+
+	/* Scroll bar of items list */
+	.reslt-section::-webkit-scrollbar {
+		width: 13px;
+	}
+
+	.reslt-section::-webkit-scrollbar-thumb {
+		background-color: #94a3b8;
+		border-radius: 5px;
+	}
+
+	.reslt-section::-webkit-scrollbar-thumb:hover {
+		background-color: #475569;
+	}
+
+	.reslt-section::-webkit-scrollbar-track {
+		background-color: #1e293b;
+	}
+}
+
+@layer utilities {
+	.hidden-scrollbar::-webkit-scrollbar {
+		@apply hidden;
+	}
+}
