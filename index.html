@@ -1,6 +1,6 @@
 <!-- prettier-ignore -->
 <!DOCTYPE html>
-<html lang="en" dir="ltr" class="scroll-smooth [color-scheme:only_dark]">
+<html lang="en" dir="ltr" class="scroll-smooth [color-scheme:only_dark] lg:h-full">
 	<!-- prettier-ignore -->
 	<head>
 		<meta charset="UTF-8" />
@@ -42,15 +42,16 @@
 		<script type="module" src="./src/app.js"></script>
 	</head>
 
-	<body class="relative h-screen w-screen bg-slate-800 font-sans lg:overflow-hidden">
-		<h1 class="mx-auto mb-5 min-w-max text-center text-[20px] font-bold tracking-wide sm:text-[25px]">
-			<span
-				class="bg-gradient-to-br from-green-400 to-blue-400 bg-clip-text text-2xl italic text-transparent sm:text-[26px]">
-				Budgetly
-			</span>
-			&#8226; Expense Tracker
-		</h1>
+	<body class="relative min-h-screen overflow-x-hidden bg-slate-800 pb-3 lg:h-full lg:overflow-y-hidden">
+		<header class="mx-3">
+			<h1
+				class="bg-gradient-to-br from-green-400 to-blue-400 bg-clip-text pb-6 pt-0.5 text-center text-3xl font-bold leading-normal text-transparent lg:pt-2.5 lg:text-4xl">
+				Budgetly Expense Tracker
+			</h1>
+		</header>
 
-		<main id="app"></main>
+		<main id="app" class="space-y-5 lg:h-full lg:pb-[21.1rem]"></main>
+
+		<noscript>JavaScript must be enabled for this website.</noscript>
 	</body>
 </html>

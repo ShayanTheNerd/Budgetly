@@ -1,43 +1,3 @@
-<template>
-	<section class="m-3 mt-4 text-center text-slate-50 lg:mt-4">
-		<div class="-mt-2.5 text-sm lg:text-base">
-			<p>Available Budget on</p>
-			<time>{{ todaysFormattedDate() }}</time>
-		</div>
-
-		<!-- Current available budget -->
-		<p :class="totalBudgetColor" class="mb-5 mt-4 text-4xl font-medium tracking-widest">
-			{{ animatedBudgetNumber() }}
-		</p>
-
-		<!-- Total amount of incomes/expenses -->
-		<div
-			class="mx-auto max-w-sm space-y-3 sm:flex sm:max-w-2xl sm:items-center sm:justify-center sm:space-x-3 sm:space-y-0">
-			<!-- Total amount of incomes -->
-			<div
-				class="flex items-center justify-between rounded bg-emerald-500 py-2.5 pl-3 pr-16 text-xl font-medium sm:w-1/2 sm:space-x-7 sm:px-3">
-				<h2>Incomes</h2>
-
-				<p class="text-[21px] font-semibold tracking-wider">{{ animatedTotalIncomesNumber() }}</p>
-			</div>
-
-			<!-- Total amount of expenses -->
-			<div
-				class="relative flex items-center justify-between rounded bg-red-500 py-2.5 pl-3 pr-16 text-xl font-medium sm:w-1/2 sm:space-x-7">
-				<h2>Expenses</h2>
-
-				<p class="text-[21px] font-semibold tracking-wider">{{ animatedTotalExpensesNumber() }}</p>
-
-				<!-- Percentage of expenses to the total income -->
-				<span
-					class="absolute right-1.5 top-3 mt-0.5 max-w-[55px] overflow-hidden rounded bg-gray-300 bg-opacity-40 px-1 text-sm leading-5 lg:top-[12px] lg:text-[15px]">
-					{{ animatedPercentageNumber() }}
-				</span>
-			</div>
-		</div>
-	</section>
-</template>
-
 <script setup>
 	import gsap from 'gsap';
 	import { useStore } from 'vuex';
@@ -122,3 +82,45 @@
 		else return `${numbers.percentageNumber.toLocaleString('en-US', { maximumFractionDigits: 0 })}%`;
 	}
 </script>
+
+<template>
+	<section class="mx-3 !mt-0 text-center text-slate-50">
+		<p class="text-sm lg:text-base">
+			Available Budget on
+			<time datetime="">{{ todaysFormattedDate() }}</time>
+		</p>
+
+		<!-- Budget -->
+		<p :class="totalBudgetColor" class="mb-6 mt-4 text-4xl font-medium leading-8 tracking-wide">
+			{{ animatedBudgetNumber() }}
+		</p>
+
+		<!-- Total amount of incomes/expenses -->
+		<div class="mx-auto flex max-w-sm flex-col gap-3.5 sm:max-w-2xl sm:flex-row sm:items-center sm:justify-center">
+			<!-- Total amount of incomes -->
+			<div
+				class="hidden-scrollbar flex h-12 items-center justify-between gap-3.5 overflow-x-auto rounded-md bg-emerald-500 px-3 text-lg sm:w-1/2 lg:text-xl">
+				<p class="w-20 shrink-0 tracking-wide">Incomes</p>
+
+				<p class="text-[21px] font-medium tracking-wide">{{ animatedTotalIncomesNumber() }}</p>
+
+				<small class="invisible min-w-max rounded-md bg-slate-300/40 px-1 transition-all">
+					{{ animatedPercentageNumber() }}
+				</small>
+			</div>
+
+			<!-- Total amount of expenses -->
+			<div
+				class="hidden-scrollbar flex h-12 items-center justify-between gap-3.5 overflow-x-auto rounded-md bg-red-500 px-3 text-lg sm:w-1/2 lg:text-xl">
+				<p class="w-20 shrink-0 tracking-wide">Expenses</p>
+
+				<p class="text-[21px] font-medium tracking-wide">{{ animatedTotalExpensesNumber() }}</p>
+
+				<!-- Percentage of expenses to the total income -->
+				<small class="min-w-max rounded-md bg-slate-300/40 px-1 transition-all">
+					{{ animatedPercentageNumber() }}
+				</small>
+			</div>
+		</div>
+	</section>
+</template>

@@ -1,60 +1,3 @@
-<template>
-	<section
-		@keypress.enter="itemValidation()"
-		class="flex items-center justify-center bg-slate-900 p-[11px] shadow-[inset_0px_0px_5px_5px_#00000050]">
-		<!-- Item type identifier -->
-		<button
-			:value="itemType"
-			:class="`change-type-btn-${itemType}`"
-			@click="changeItemType(itemType)"
-			type="button"
-			aria-label="Change item type"
-			class="change-type-btn">
-			{{ itemType === 'inc' ? '&#43;' : '&#8722;' }}
-		</button>
-
-		<div
-			class="mx-[11px] flex w-full max-w-[290px] flex-col items-center justify-center space-y-3 sm:ml-3 sm:mr-2 sm:max-w-[557px] sm:flex-row sm:space-x-3 sm:space-y-0">
-			<!-- Item description input -->
-			<input
-				v-model.trim="descInput"
-				:class="`desc-input-${itemType}`"
-				type="text"
-				inputmode="text"
-				placeholder="Description"
-				class="desc-input" />
-
-			<!-- Item value input -->
-			<input
-				v-model.number="numberInput"
-				:class="`value-input-${itemType}`"
-				type="number"
-				inputmode="numeric"
-				min="1"
-				max="999999"
-				placeholder="Value (number)"
-				class="value-input" />
-		</div>
-
-		<!-- Add item button -->
-		<button
-			@click="itemValidation()"
-			type="button"
-			aria-label="Add item"
-			class="h-11 min-h-[40px] w-11 min-w-[40px] duration-200 active:scale-90">
-			<svg
-				:class="`add-item-btn-${itemType}`"
-				xmlns="http://www.w3.org/2000/svg"
-				fill="transparent"
-				viewBox="0 0 24 24"
-				stroke="currentColor"
-				stroke-width="2">
-				<path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-			</svg>
-		</button>
-	</section>
-</template>
-
 <script setup>
 	import { useStore } from 'vuex';
 	import { ref } from 'vue';
@@ -134,55 +77,69 @@
 	}
 </script>
 
-<style scoped>
-	/* Dynamic-styled buttons and inputs */
-	.change-type-btn {
-		border-radius: 1px;
-		padding: 12px;
-		padding-top: 6px;
-		background-color: #f1f5f9;
-		font-size: 30px;
-		line-height: 36px;
-		font-weight: 500;
-		width: 32px;
-		height: 32px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		transition-duration: 200ms;
-		border: 3px solid;
-	}
+<template>
+	<section class="flex justify-center bg-slate-900 p-3.5 shadow-[inset_0px_0px_5px_5px_#00000050]">
+		<form @submit.prevent="itemValidation()" class="mx-auto w-full max-w-sm sm:max-w-2xl">
+			<fieldset class="relative flex items-center justify-center">
+				<legend class="sr-only">Add or remove transactions</legend>
 
+				<!-- Transaction type identifier -->
+				<button
+					type="button"
+					title="Change item type"
+					:class="`change-type-btn-${itemType}`"
+					@click="changeItemType(itemType)"
+					class="group flex h-9 w-9 items-center justify-center rounded-md border-[3px] bg-slate-100 p-3 transition-all sm:h-11 sm:w-11">
+					<svg aria-hidden="true" class="h-6 w-6 shrink-0 sm:h-7 sm:w-7">
+						<use :href="`icons.svg#${itemType === 'inc' ? 'plus' : 'minus'}`" />
+					</svg>
+				</button>
+
+				<div class="me-3.5 ms-4 flex w-full flex-col items-center justify-center gap-3.5 sm:me-2 sm:ms-3 sm:flex-row">
+					<!-- Transaction name -->
+					<input
+						required
+						type="text"
+						placeholder="Transaction name"
+						v-model.trim="descInput"
+						:class="`desc-input-${itemType}`"
+						class="h-9 w-full rounded-md bg-slate-100 px-2.5 text-slate-900 sm:h-11 lg:text-lg" />
+
+					<!-- Transaction value -->
+					<input
+						required
+						type="number"
+						inputmode="numeric"
+						min="1"
+						placeholder="Transaction value"
+						v-model.number="numberInput"
+						:class="`value-input-${itemType}`"
+						class="h-9 w-full rounded-md bg-slate-100 px-2.5 text-slate-900 sm:h-11 lg:text-lg" />
+				</div>
+
+				<!-- Add item button -->
+				<button
+					type="submit"
+					aria-label="Submit transaction"
+					class="h-[41px] w-[41px] transition-all active:scale-90 sm:h-11 sm:w-11">
+					<svg aria-hidden="true" :class="`add-item-btn-${itemType}`" class="h-inherit w-inherit transition-all">
+						<use href="icons.svg#check_circle" />
+					</svg>
+				</button>
+			</fieldset>
+		</form>
+	</section>
+</template>
+
+<style scoped>
 	.change-type-btn-inc {
 		border-color: #10b981;
-		color: #10b981;
+		stroke: #10b981;
 	}
 
 	.change-type-btn-exp {
 		border-color: #dc2626;
-		color: #dc2626;
-	}
-
-	.desc-input {
-		border-radius: 0;
-		background-color: #f1f5f9;
-		font-weight: 500;
-		color: #0f172a;
-		font-size: 18px;
-		line-height: 28px;
-		padding-left: 8px;
-		padding-right: 8px;
-		height: 32px;
-		width: 100%;
-		border: none;
-	}
-
-	.desc-input::placeholder {
-		color: #94a3b8;
-	}
-
-	.desc-input-inc:hover {
-		outline: 2px solid #10b981;
+		stroke: #dc2626;
 	}
 
 	.desc-input-inc:focus,
@@ -190,45 +147,14 @@
 		outline: 3px solid #10b981;
 	}
 
-	.desc-input-exp:hover {
-		outline: 2px solid #dc2626;
-	}
-
 	.desc-input-exp:focus,
 	.desc-input-exp:focus-within {
 		outline: 3px solid #dc2626;
 	}
 
-	.value-input {
-		border-radius: 0;
-		background-color: #f1f5f9;
-		font-weight: 500;
-		color: #0f172a;
-		font-size: 18px;
-		line-height: 28px;
-		padding-left: 8px;
-		padding-right: 8px;
-		height: 32px;
-		width: 100%;
-		border: none;
-		text-align: left;
-	}
-
-	.value-input::placeholder {
-		text-align: left;
-	}
-
-	.value-input-inc:hover {
-		outline: 2px solid #10b981;
-	}
-
 	.value-input-inc:focus,
 	.value-input-inc:focus-within {
 		outline: 3px solid #10b981;
-	}
-
-	.value-input-exp:hover {
-		outline: 2px solid #dc2626;
 	}
 
 	.value-input-exp:focus,
@@ -273,37 +199,9 @@
 			height: 44px;
 		}
 
-		.desc-input {
-			height: 44px;
-			border-radius: 4px;
-		}
-
-		.value-input {
-			height: 44px;
-			width: 320px;
-			font-size: 20px;
-			line-height: 28px;
-			text-align: center;
-			border-radius: 4px;
-		}
-
-		.value-input::placeholder {
-			text-align: center;
-		}
-
 		.add-item-btn {
 			height: 48px;
 			width: 48px;
-		}
-	}
-
-	@media (min-width: 1024px) {
-		.desc-input {
-			border-radius: 4px;
-		}
-
-		.value-input {
-			border-radius: 4px;
 		}
 	}
 </style>

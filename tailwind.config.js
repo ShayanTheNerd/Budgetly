@@ -8,6 +8,10 @@ export default {
 			screens: {
 				support: { raw: '(hover: hover)' }, // Check if the device supports hover
 			},
+
+			spacing: {
+				inherit: 'inherit',
+			},
 		},
 	},
 };

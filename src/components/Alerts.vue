@@ -1,9 +1,14 @@
+<script setup>
+	import { useStore } from 'vuex';
+	const alert = useStore().state.alert;
+</script>
+
 <template>
 	<transition name="scale" mode="out-in" appear>
 		<div
 			v-show="alert.isVisible"
 			@click="alert.isVisible = false"
-			class="absolute left-0 right-3 top-[61%] z-50 mx-auto flex max-w-fit cursor-pointer items-center justify-between rounded bg-red-100 fill-red-600 px-3 py-2 font-medium text-red-600 shadow-2xl md:left-auto md:right-3 md:top-2 md:mx-auto">
+			class="absolute left-0 right-3 top-[61%] z-50 mx-auto flex max-w-fit cursor-pointer items-center justify-between rounded-md bg-red-100 fill-red-600 px-3 py-2 font-medium text-red-600 shadow-2xl md:left-auto md:right-3 md:top-2 md:mx-auto">
 			<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 fill-inherit" viewBox="0 0 20 20" fill="currentColor">
 				<path
 					fill-rule="evenodd"
@@ -22,11 +27,6 @@
 		</div>
 	</transition>
 </template>
-
-<script setup>
-	import { useStore } from 'vuex';
-	const alert = useStore().state.alert;
-</script>
 
 <style scoped>
 	/* Pop-up notification transitions */
