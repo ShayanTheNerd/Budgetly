@@ -4,7 +4,7 @@
 	import BudgetAddItem from '@/components/BudgetAddItem.vue';
 	import BudgetItemsList from '@/components/BudgetItemsList.vue';
 
-	const AlertBox = defineAsyncComponent(() => import('@/components/Alerts.vue'));
+	const AlertBox = defineAsyncComponent(() => import('@/components/AlertBox.vue'));
 </script>
 
 <template>
