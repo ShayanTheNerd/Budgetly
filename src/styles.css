@@ -12,7 +12,7 @@
 		appearance: textfield;
 		-moz-appearance: textfield;
 	}
-   
+
 	/* Custom scrollbar */
 	html::-webkit-scrollbar {
 		@apply w-3;

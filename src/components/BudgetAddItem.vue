@@ -1,6 +1,6 @@
 <script setup>
-	import { useStore } from 'vuex';
 	import { ref } from 'vue';
+	import { useStore } from '../store.js';
 
 	const store = useStore();
 	let itemType = ref('inc');
@@ -41,7 +41,7 @@
 	}
 
 	function setAlert(message) {
-		store.dispatch('setAlert', message);
+		store.setAlert(message);
 	}
 
 	function createItem(type, desc, value) {
@@ -63,13 +63,13 @@
 		}
 
 		// Generate unique id for item
-		const id = store.state.data.allItems[type].length + 1;
+		const id = store.$state.data.allItems[type].length + 1;
 
 		// Create a new item based on the item type
 		const newItem = type === 'inc' ? new Income(id, desc, value) : new Expense(id, desc, value);
 
-		// Add 'newItem' to Vuex Store
-		store.dispatch('addItem', { itemType: itemType.value, newItem });
+		// Add 'newItem' to Pinia Store
+		store.addItem({ itemType: itemType.value, newItem });
 
 		// Reset inputs
 		descInput.value = undefined;

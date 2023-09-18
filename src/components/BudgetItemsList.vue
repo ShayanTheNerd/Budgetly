@@ -1,6 +1,6 @@
 <script setup>
-	import { useStore } from 'vuex';
 	import { computed } from 'vue';
+	import { useStore } from '../store.js';
 
 	const props = defineProps({
 		itemType: {
@@ -10,12 +10,12 @@
 	});
 
 	const store = useStore();
-	const data = store.state.data;
+	const data = store.$state.data;
 	const itemTypeName = computed(() => (props.itemType === 'inc' ? 'Incomes' : 'Expenses'));
 	const itemTypeColor = computed(() => (props.itemType === 'inc' ? 'text-emerald-400' : 'text-red-500'));
 
 	function deleteItem(item, type) {
-		store.dispatch('deleteItem', { item, type });
+		store.deleteItem({ item, type });
 	}
 </script>
 

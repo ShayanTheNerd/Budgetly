@@ -1,25 +1,25 @@
 <script setup>
 	import gsap from 'gsap';
-	import { useStore } from 'vuex';
+	import { useStore } from '../store.js';
 	import { reactive, computed, watch } from 'vue';
 
-	const storeData = useStore().state.data;
+	const store = useStore();
 	const numbers = reactive({
 		budgetNumber: 0,
 		percentageNumber: '--',
 		totalIncomesNumber: 0,
 		totalExpensesNumber: 0,
 	});
-	const totalBudgetToWatch = computed(() => storeData.budget);
-	const budgetPercentageToWatch = computed(() => storeData.percentage);
-	const budgetTotalIncsToWatch = computed(() => storeData.totals['inc']);
-	const budgetTotalExpsToWatch = computed(() => storeData.totals['exp']);
+	const totalBudgetToWatch = computed(() => store.$state.data.budget);
+	const budgetPercentageToWatch = computed(() => store.$state.data.percentage);
+	const budgetTotalIncsToWatch = computed(() => store.$state.data.totals.inc);
+	const budgetTotalExpsToWatch = computed(() => store.$state.data.totals.exp);
 	const totalBudgetColor = computed(() => {
-		if (storeData.budget < 0) {
+		if (store.$state.data.budget < 0) {
 			return 'text-red-500';
-		} else if (storeData.budget === 0) {
+		} else if (store.$state.data.budget === 0) {
 			return 'text-inherit';
-		} else if (storeData.budget > 0) {
+		} else if (store.$state.data.budget > 0) {
 			return 'text-emerald-400';
 		}
 	});
@@ -57,35 +57,35 @@
 	}
 
 	function animatedBudgetNumber() {
-		if (storeData.budget === 0 || storeData.budget < 0) {
+		if (store.$state.data.budget === 0 || store.$state.data.budget < 0) {
 			return numbers.budgetNumber.toLocaleString('en-US', { maximumFractionDigits: 0 });
-		} else if (storeData.budget > 0) {
+		} else if (store.$state.data.budget > 0) {
 			return `+${numbers.budgetNumber.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
 		}
 	}
 
 	function animatedTotalIncomesNumber() {
-		if (storeData.totals.inc > 0)
+		if (store.$state.data.totals.inc > 0)
 			return `+${numbers.totalIncomesNumber.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
 		else return numbers.totalIncomesNumber.toLocaleString('en-US', { maximumFractionDigits: 0 });
 	}
 
 	function animatedTotalExpensesNumber() {
-		if (storeData.totals.exp > 0)
+		if (store.$state.data.totals.exp > 0)
 			return `-${numbers.totalExpensesNumber.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
 		else return numbers.totalExpensesNumber.toLocaleString('en-US', { maximumFractionDigits: 0 });
 	}
 
 	function animatedPercentageNumber() {
-		if (storeData.percentage > 100) return '+100%';
-		if (storeData.percentage === '--' || storeData.totals['inc'] === 0) return '--';
+		if (store.$state.data.percentage > 100) return '+100%';
+		if (store.$state.data.percentage === '--' || store.$state.data.totals.inc === 0) return '--';
 		else return `${numbers.percentageNumber.toLocaleString('en-US', { maximumFractionDigits: 0 })}%`;
 	}
 </script>
 
 <template>
 	<section class="mx-3 !mt-0 text-center text-slate-50">
-		<p class="text-sm lg:text-base">
+		<p v-once class="text-sm lg:text-base">
 			Available Budget on
 			<time datetime="">{{ todaysFormattedDate() }}</time>
 		</p>

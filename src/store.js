@@ -1,7 +1,7 @@
-import { createStore } from 'vuex';
+import { defineStore } from 'pinia';
 
-export default createStore({
-	state: {
+export const useStore = defineStore('store', {
+	state: () => ({
 		data: {
 			allItems: {
 				inc: [] /* All income items => {id: 1, description: 'lorem ipsum', value: 25238} */,
@@ -18,72 +18,54 @@ export default createStore({
 			message: null,
 			isVisible: false,
 		},
-	},
-	mutations: {
-		ADD_ITEM(state, props) {
+	}),
+	actions: {
+		addItem(props) {
 			const { itemType, newItem } = props;
-			state.data.allItems[itemType].unshift(newItem);
+			this.data.allItems[itemType].unshift(newItem);
+			this.calculateTotal(itemType);
+			this.calculateBudget();
 		},
-		CALCULATE_TOTAL(state, type) {
+		calculateTotal(type) {
 			// Store the values of all items from 'type' in an array
-			const itemValues = state.data.allItems[type].map(item => item.value);
+			const itemValues = this.data.allItems[type].map(item => item.value);
 
 			// Store the sum of all items into corresponding arrays in 'totals' object
-			state.data.totals[type] = itemValues.reduce((prev, cur) => prev + cur, 0);
+			this.data.totals[type] = itemValues.reduce((prev, cur) => prev + cur, 0);
 		},
-		CALCULATE_BUDGET(state) {
+		calculateBudget() {
 			// Calculate the current budget (income - expense)
-			state.data.budget = state.data.totals.inc - state.data.totals.exp;
+			this.data.budget = this.data.totals.inc - this.data.totals.exp;
 
 			// Calculate the percentage ((expense / income) * 100)
-			const percentage = Math.round((state.data.totals.exp / state.data.totals.inc) * 100);
+			const percentage = Math.round((this.data.totals.exp / this.data.totals.inc) * 100);
 			if (percentage !== Infinity && percentage !== undefined) {
-				state.data.percentage = percentage;
+				this.data.percentage = percentage;
 			} else {
-				state.data.percentage = '--';
+				this.data.percentage = '--';
 			}
 		},
-		DELETE_ITEM(state, props) {
+		deleteItem(props) {
 			const { item, type } = props;
 
 			// Create a new array containing ids of all items in the inc/exp arrays
-			const ids = state.data.allItems[type].map(current => current.id);
+			const ids = this.data.allItems[type].map(current => current.id);
 
 			const index = ids.indexOf(item.id);
 
 			// Delete one item from the specified index position
-			if (index !== -1) state.data.allItems[type].splice(index, 1); /* '-1' => 'id' is not found in the 'ids' array */
+			if (index !== -1) this.data.allItems[type].splice(index, 1); /* '-1' => 'id' is not found in the 'ids' array */
+
+			this.calculateTotal(type);
+			this.calculateBudget();
 		},
-		SET_ALERT(state, message) {
-			state.alert.isVisible = message === null ? false : true;
-			state.alert.message = message;
+		setAlert(message) {
+			this.alert.isVisible = message === null ? false : true;
+			this.alert.message = message;
 			setTimeout(() => {
-				state.alert.message = null;
-				state.alert.isVisible = false;
+				this.alert.message = null;
+				this.alert.isVisible = false;
 			}, 3000);
-		},
-	},
-	actions: {
-		addItem({ commit }, props) {
-			commit('ADD_ITEM', props);
-
-			// Calculate total incomes and expenses
-			commit('CALCULATE_TOTAL', 'inc');
-			commit('CALCULATE_TOTAL', 'exp');
-
-			commit('CALCULATE_BUDGET');
-		},
-		deleteItem({ commit }, props) {
-			commit('DELETE_ITEM', props);
-
-			// Calculate total incomes and expenses
-			commit('CALCULATE_TOTAL', 'inc');
-			commit('CALCULATE_TOTAL', 'exp');
-
-			commit('CALCULATE_BUDGET');
-		},
-		setAlert({ commit }, message) {
-			commit('SET_ALERT', message);
 		},
 	},
 });
