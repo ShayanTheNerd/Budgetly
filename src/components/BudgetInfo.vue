@@ -99,7 +99,7 @@
 		<div class="mx-auto flex max-w-sm flex-col gap-3.5 sm:max-w-2xl sm:flex-row sm:items-center sm:justify-center">
 			<!-- Total amount of incomes -->
 			<div
-				class="hidden-scrollbar flex h-12 items-center justify-between gap-3.5 overflow-x-auto rounded-md bg-emerald-500 px-3 text-lg sm:w-1/2 lg:text-xl">
+				class="scrollbar-hidden flex h-12 items-center justify-between gap-3.5 overflow-x-auto rounded-md bg-emerald-500 px-3 text-lg sm:w-1/2 lg:text-xl">
 				<p class="w-20 shrink-0 tracking-wide">Incomes</p>
 
 				<p class="text-[21px] font-medium tracking-wide">{{ animatedTotalIncomesNumber() }}</p>
@@ -111,7 +111,7 @@
 
 			<!-- Total amount of expenses -->
 			<div
-				class="hidden-scrollbar flex h-12 items-center justify-between gap-3.5 overflow-x-auto rounded-md bg-red-500 px-3 text-lg sm:w-1/2 lg:text-xl">
+				class="scrollbar-hidden flex h-12 items-center justify-between gap-3.5 overflow-x-auto rounded-md bg-red-500 px-3 text-lg sm:w-1/2 lg:text-xl">
 				<p class="w-20 shrink-0 tracking-wide">Expenses</p>
 
 				<p class="text-[21px] font-medium tracking-wide">{{ animatedTotalExpensesNumber() }}</p>

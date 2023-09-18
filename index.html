@@ -1,6 +1,6 @@
 <!-- prettier-ignore -->
 <!DOCTYPE html>
-<html lang="en" dir="ltr" class="scroll-smooth [color-scheme:only_dark] lg:h-full">
+<html lang="en" dir="ltr" class="h-full [color-scheme:only_dark]">
 	<!-- prettier-ignore -->
 	<head>
 		<meta charset="UTF-8" />
@@ -42,7 +42,7 @@
 		<script type="module" src="./src/app.js"></script>
 	</head>
 
-	<body class="relative min-h-screen overflow-x-hidden bg-slate-800 pb-3 lg:h-full lg:overflow-y-hidden">
+	<body class="relative flex h-full flex-col overflow-x-hidden bg-slate-800">
 		<header class="mx-3">
 			<h1
 				class="bg-gradient-to-br from-green-400 to-blue-400 bg-clip-text pb-6 pt-0.5 text-center text-3xl font-bold leading-normal text-transparent lg:pt-2.5 lg:text-4xl">
@@ -50,7 +50,7 @@
 			</h1>
 		</header>
 
-		<main id="app" class="space-y-5 lg:h-full lg:pb-[21.1rem]"></main>
+		<main id="app" class="flex grow flex-col space-y-5"></main>
 
 		<noscript>JavaScript must be enabled for this website.</noscript>
 	</body>
