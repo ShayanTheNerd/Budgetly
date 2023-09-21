@@ -1,15 +1,10 @@
 <script setup>
-	import { defineAsyncComponent } from 'vue';
 	import BudgetInfo from '@/components/BudgetInfo.vue';
 	import BudgetAddItem from '@/components/BudgetAddItem.vue';
 	import BudgetItemsList from '@/components/BudgetItemsList.vue';
-
-	const AlertBox = defineAsyncComponent(() => import('@/components/AlertBox.vue'));
 </script>
 
 <template>
-	<AlertBox />
-
 	<BudgetInfo />
 
 	<BudgetAddItem />
@@ -19,10 +14,10 @@
 		<div
 			class="mx-auto flex w-full max-w-sm grow flex-col gap-6 rounded-md bg-slate-900 p-3 shadow-xl sm:max-w-2xl sm:gap-8 sm:p-4 lg:max-w-screen-lg lg:flex-row lg:gap-6">
 			<!-- Incomes -->
-			<BudgetItemsList item-type="inc" />
+			<BudgetItemsList type="incomes" />
 
 			<!-- Expenses -->
-			<BudgetItemsList item-type="exp" />
+			<BudgetItemsList type="expenses" />
 		</div>
 	</section>
 </template>

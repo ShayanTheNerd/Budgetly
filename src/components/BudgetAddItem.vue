@@ -1,129 +1,83 @@
 <script setup>
-	import { ref } from 'vue';
-	import { useStore } from '../store.js';
+	import { useBudgetStore } from '../budgetStore.js';
+	import tailwindConfigFile from '../../tailwind.config.js';
+	import { ref, reactive, computed, onMounted } from 'vue';
+	import resolveTailwindConfig from 'tailwindcss/resolveConfig';
+	import BudgetAddItemInput from '@/components/BudgetAddItemInput.vue';
 
-	const store = useStore();
-	let itemType = ref('inc');
-	let descInput = ref(undefined); /* Description input value */
-	let numberInput = ref(undefined); /* Number input value */
+	/* prettier-ignore */
+	const { theme: { colors: tailwindColors } } = resolveTailwindConfig(tailwindConfigFile);
+	const item = reactive({ id: crypto.randomUUID(), type: 'incomes', name: '', value: null });
+	const color = computed(() => tailwindColors[`${item.type === 'incomes' ? 'emerald' : 'red'}`][500]);
+	const colorDim = computed(() => tailwindColors[`${item.type === 'incomes' ? 'emerald' : 'red'}`][600]);
+	const itemNameInput = ref();
+	const itemValueInput = ref();
 
-	function changeItemType(type) {
-		if (type === 'inc') itemType.value = 'exp';
-		if (type === 'exp') itemType.value = 'inc';
-		if (descInput.value === undefined || descInput.value == '') setFocus('desc-input');
-		if (descInput.value !== undefined && descInput.value != '') setFocus('value-input');
+	function changeItemType() {
+		item.type = item.type === 'incomes' ? 'expenses' : 'incomes';
+		!item.name ? itemNameInput.value.focus() : itemValueInput.value.focus();
 	}
 
-	function itemValidation() {
-		if (descInput.value === undefined || descInput.value == '') {
-			descInput.value = undefined;
-			setAlert('Description Required');
-			setFocus('desc-input');
-		} else if (isNaN(numberInput.value)) {
-			setAlert('Value Required');
-			setFocus('value-input');
-		} else if (numberInput.value == '') {
-			setAlert('Value Must Be A Number');
-			setFocus('value-input');
-		} else if (Math.round(numberInput.value) > 9999999) {
-			setAlert('Value Is Too Big');
-			setFocus('value-input');
-		} else {
-			setAlert(null);
-			createItem(itemType.value, descInput.value, numberInput.value);
-			setFocus('desc-input');
-		}
-	}
-
-	function setFocus(element) {
-		if (element === 'desc-input') document.querySelector('input[type="text"]').focus();
-		if (element === 'value-input') document.querySelector('input[type="number"]').focus();
-	}
-
-	function setAlert(message) {
-		store.setAlert(message);
-	}
-
-	function createItem(type, desc, value) {
-		// Income item structure
-		class Income {
-			constructor(Id, Description, Value) {
-				this.id = Id;
-				this.description = Description;
-				this.value = Value;
-			}
-		}
-		// Expense item structure
-		class Expense {
-			constructor(Id, Description, Value) {
-				this.id = Id;
-				this.description = Description;
-				this.value = Value;
-			}
-		}
-
-		// Generate unique id for item
-		const id = store.$state.data.allItems[type].length + 1;
-
-		// Create a new item based on the item type
-		const newItem = type === 'inc' ? new Income(id, desc, value) : new Expense(id, desc, value);
-
-		// Add 'newItem' to Pinia Store
-		store.addItem({ itemType: itemType.value, newItem });
+	function submitItem() {
+		useBudgetStore().addItem({ ...item }); // spread the Proxy into a plain object
 
 		// Reset inputs
-		descInput.value = undefined;
-		numberInput.value = undefined;
+		item.name = '';
+		item.value = null;
+		itemNameInput.value.focus();
 	}
+
+	onMounted(() => itemNameInput.value.focus());
 </script>
 
 <template>
 	<section class="flex justify-center bg-slate-900 p-3.5 shadow-[inset_0px_0px_5px_5px_#00000050]">
-		<form @submit.prevent="itemValidation()" class="mx-auto w-full max-w-sm sm:max-w-2xl">
+		<form @submit.prevent="submitItem()" class="mx-auto w-full max-w-sm sm:max-w-2xl">
 			<fieldset class="relative flex items-center justify-center">
 				<legend class="sr-only">Add or remove transactions</legend>
 
-				<!-- Transaction type identifier -->
+				<!-- Item type identifier -->
 				<button
 					type="button"
 					title="Change item type"
-					:class="`change-type-btn-${itemType}`"
-					@click="changeItemType(itemType)"
-					class="group flex h-9 w-9 items-center justify-center rounded-md border-[3px] bg-slate-100 p-3 transition-all sm:h-11 sm:w-11">
-					<svg aria-hidden="true" class="h-6 w-6 shrink-0 sm:h-7 sm:w-7">
-						<use :href="`icons.svg#${itemType === 'inc' ? 'plus' : 'minus'}`" />
+					@click="changeItemType()"
+					class="group group flex h-9 w-9 items-center justify-center rounded-md border-3 border-[--color] bg-slate-100 p-3 transition-colors hover:border-[--color-dim] focus-visible:border-[--color-dim] focus-visible:outline-none sm:h-11 sm:w-11">
+					<svg
+						aria-hidden="true"
+						class="h-6 w-6 shrink-0 stroke-[--color] transition-colors group-hover:stroke-[--color-dim] group-focus-visible:stroke-[--color-dim] sm:h-7 sm:w-7">
+						<use :href="`/icons.svg#${item.type === 'incomes' ? 'plus' : 'minus'}`" />
 					</svg>
 				</button>
 
 				<div class="me-3.5 ms-4 flex w-full flex-col items-center justify-center gap-3.5 sm:me-2 sm:ms-3 sm:flex-row">
-					<!-- Transaction name -->
-					<input
-						required
+					<!-- Item name -->
+					<BudgetAddItemInput
 						type="text"
-						placeholder="Transaction name"
-						v-model.trim="descInput"
-						:class="`desc-input-${itemType}`"
-						class="h-9 w-full rounded-md bg-slate-100 px-2.5 text-slate-900 sm:h-11 lg:text-lg" />
+						ref="itemNameInput"
+						v-model.trim="item.name"
+						placeholder="Item name"
+						inputmode="text" />
 
-					<!-- Transaction value -->
-					<input
-						required
+					<!-- Item value -->
+					<BudgetAddItemInput
 						type="number"
+						ref="itemValueInput"
+						v-model.number="item.value"
+						placeholder="Item value"
 						inputmode="numeric"
-						min="1"
-						placeholder="Transaction value"
-						v-model.number="numberInput"
-						:class="`value-input-${itemType}`"
-						class="h-9 w-full rounded-md bg-slate-100 px-2.5 text-slate-900 sm:h-11 lg:text-lg" />
+						min="1" />
 				</div>
 
-				<!-- Add item button -->
+				<!-- Submit item button -->
 				<button
 					type="submit"
-					aria-label="Submit transaction"
-					class="h-[41px] w-[41px] transition-all active:scale-90 sm:h-11 sm:w-11">
-					<svg aria-hidden="true" :class="`add-item-btn-${itemType}`" class="h-inherit w-inherit transition-all">
-						<use href="icons.svg#check_circle" />
+					title="Submit item"
+					ref="submitItemBtn"
+					class="group h-[41px] w-[41px] transition-transform focus-visible:outline-none active:scale-90 sm:h-11 sm:w-11">
+					<svg
+						aria-hidden="true"
+						class="h-inherit w-inherit stroke-[--color] transition-all group-hover:stroke-[--color-dim] group-focus-visible:stroke-[--color-dim]">
+						<use href="/icons.svg#check_circle" />
 					</svg>
 				</button>
 			</fieldset>
@@ -132,76 +86,8 @@
 </template>
 
 <style scoped>
-	.change-type-btn-inc {
-		border-color: #10b981;
-		stroke: #10b981;
-	}
-
-	.change-type-btn-exp {
-		border-color: #dc2626;
-		stroke: #dc2626;
-	}
-
-	.desc-input-inc:focus,
-	.desc-input-inc:focus-within {
-		outline: 3px solid #10b981;
-	}
-
-	.desc-input-exp:focus,
-	.desc-input-exp:focus-within {
-		outline: 3px solid #dc2626;
-	}
-
-	.value-input-inc:focus,
-	.value-input-inc:focus-within {
-		outline: 3px solid #10b981;
-	}
-
-	.value-input-exp:focus,
-	.value-input-exp:focus-within {
-		outline: 3px solid #dc2626;
-	}
-
-	.add-item-btn-inc {
-		stroke: #10b981;
-	}
-
-	.add-item-btn-exp {
-		stroke: #dc2626;
-	}
-
-	@media (hover: hover) {
-		.change-type-btn-inc:hover {
-			color: #059669;
-			border-color: #059669;
-		}
-
-		.change-type-btn-exp:hover {
-			color: #b91c1c;
-			border-color: #b91c1c;
-		}
-
-		.add-item-btn-inc:hover {
-			stroke: #059669;
-		}
-
-		.add-item-btn-exp:hover {
-			stroke: #b91c1c;
-		}
-	}
-
-	@media (min-width: 640px) {
-		.change-type-btn {
-			padding: 0px;
-			border-radius: 4px;
-			font-size: 33px;
-			width: 44px;
-			height: 44px;
-		}
-
-		.add-item-btn {
-			height: 48px;
-			width: 48px;
-		}
+	fieldset {
+		--color: v-bind(color);
+		--color-dim: v-bind(colorDim);
 	}
 </style>
