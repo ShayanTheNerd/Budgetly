@@ -22,10 +22,10 @@
 	const { formatNumber } = useFormatNumber();
 	const { formatNumber: formatNumberPercent } = useFormatNumber({ style: 'percent' });
 
-	const { value, percentage } = toRefs(props);
-	const valueAnimated = useTransition(value);
-	const percentageAnimated = useTransition(percentage);
 	const budgetStore = useBudgetStore();
+	const { value, percentage } = toRefs(props);
+	const valueAnimated = useTransition(value, budgetStore.transitionsConfig);
+	const percentageAnimated = useTransition(percentage, budgetStore.transitionsConfig);
 	const percentagePrefix = computed(() => {
 		const totalExpenses = budgetStore.getTotal('expenses');
 		return percentageAnimated.value > 100 ? '+' : totalExpenses === 0 ? '' : '~';

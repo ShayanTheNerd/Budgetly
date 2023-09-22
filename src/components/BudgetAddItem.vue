@@ -34,7 +34,7 @@
 	<section class="flex justify-center bg-slate-900 p-3.5 shadow-[inset_0px_0px_5px_5px_#00000050]">
 		<form @submit.prevent="submitItem()" class="mx-auto w-full max-w-sm sm:max-w-2xl">
 			<fieldset class="relative flex items-center justify-center">
-				<legend class="sr-only">Add or remove transactions</legend>
+				<legend class="sr-only">Add or remove item</legend>
 
 				<!-- Item type identifier -->
 				<button

@@ -1,6 +1,6 @@
 # Budgetly
 
-A beautiful expense tracker for easily managing your financial transactions!
+A beautiful expense tracker for easily managing your financial accounts!
 
 <figure>
   <img src="https://github.com/ShayanTheNerd/budgetly/blob/main/og-img.webp" />
@@ -18,14 +18,14 @@ A beautiful expense tracker for easily managing your financial transactions!
 
 <ul>
   <li>Semantic, clean, and extendable code</li>
+  <li>LocalStorage as temporary database</li>
   <li>Minimal and easy-to-use UI</li>
-  <li>Simple form validation</li>
-  <li>Animation effects</li>
+  <li>Animations</li>
 </ul>
 
 ## How it works
 
-First, select a type for your transaction (income/expense) by toggling the "+"/"-" button. Then, type the name of the transaction followed by its amount and add it to the list. It will be automatically placed in the incomes or expenses column based on the specified transaction type. It'll also get saved to the local storage to prevent data loss on page refresh or revisit.
+First, select a type for your account (income/expense) by toggling the "+"/"-" button. Then, type the name of the item followed by its amount and add it to the list. It will be automatically placed in the incomes or expenses column based on the specified item type. It'll also get saved to the local storage to prevent data loss on page refresh or revisit.
 
 ## Development setup
 

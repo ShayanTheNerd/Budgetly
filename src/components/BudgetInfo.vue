@@ -11,7 +11,7 @@
 	const budgetStore = useBudgetStore();
 	const { currentMachineDate, currentDate } = useDate();
 	const { balance, expensesPercentage } = storeToRefs(budgetStore);
-	const balanceAnimated = useTransition(balance);
+	const balanceAnimated = useTransition(balance, budgetStore.transitionsConfig);
 </script>
 
 <template>
