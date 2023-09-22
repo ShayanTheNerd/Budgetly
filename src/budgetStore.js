@@ -1,9 +1,10 @@
 import { defineStore, acceptHMRUpdate } from 'pinia';
 
 export const useBudgetStore = defineStore('budgetStore', {
+	persist: true,
 	state: () => ({
-		incomes: new Set(),
-		expenses: new Set(),
+		incomes: [],
+		expenses: [],
 	}),
 	getters: {
 		balance() {
@@ -14,7 +15,7 @@ export const useBudgetStore = defineStore('budgetStore', {
 		},
 		getTotal() {
 			return function (accountType) {
-				return [...this[accountType]].reduce((previousValue, currentItem) => previousValue + currentItem.value, 0);
+				return this[accountType].reduce((previousValue, currentItem) => previousValue + currentItem.value, 0);
 			};
 		},
 		expensesPercentage() {
@@ -26,10 +27,13 @@ export const useBudgetStore = defineStore('budgetStore', {
 	},
 	actions: {
 		addItem(item) {
-			this[item.type].add(item);
+			this[item.type].push(item);
 		},
 		deleteItem(item) {
-			this[item.type].delete(item);
+			const items = this[item.type];
+			const itemIndex = items.indexOf(item);
+
+			if (itemIndex !== -1) items.splice(itemIndex, 1);
 		},
 	},
 });

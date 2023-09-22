@@ -17,7 +17,7 @@
 	/* prettier-ignore */
 	const { theme: { colors: tailwindColors, } } = resolveTailwindConfig(tailwindConfigFile);
 	const budgetStore = useBudgetStore();
-	const items = computed(() => budgetStore.$state[props.type]);
+	const items = computed(() => budgetStore.$state[props.type].reverse());
 	const itemSign = props.type === 'incomes' ? '+' : '-';
 	const itemColor = tailwindColors[props.type === 'incomes' ? 'emerald' : 'red'][500];
 	const itemColorDim = tailwindColors[props.type === 'incomes' ? 'emerald' : 'red'][600];
