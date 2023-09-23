@@ -40,12 +40,13 @@
 			<li
 				v-for="item in items"
 				:key="item"
-				class="flex w-full items-center justify-between gap-3.5 overflow-x-auto bg-slate-800 px-3.5 py-2.5 first-of-type:rounded-t-md last-of-type:rounded-b-md sm:gap-5">
+				class="flex w-full items-center justify-between gap-3.5 overflow-x-auto bg-slate-800 p-2.5 first-of-type:rounded-t-md last-of-type:rounded-b-md lg:px-3.5 lg:py-3">
 				<!-- Item name -->
-				<p class="tracking-wide lg:font-medium">{{ item.name }}</p>
+				<p class="max-w-[50%] shrink-0 overflow-clip text-ellipsis tracking-wide lg:font-medium">{{ item.name }}</p>
 
 				<!-- Item value -->
-				<strong class="font-medium tracking-wide text-[--color] sm:text-lg lg:text-xl lg:font-bold">
+				<strong
+					class="w-full overflow-x-clip text-ellipsis text-center font-medium tracking-wide text-[--color] sm:text-lg lg:text-xl lg:font-bold">
 					{{ `${itemSign}${formatNumber(item.value)}` }}
 				</strong>
 
@@ -54,7 +55,7 @@
 					type="button"
 					title="Delete item"
 					@click="budgetStore.deleteItem(item)"
-					class="group h-9 w-9 rounded-full transition-all focus-visible:outline-offset-[3px] active:scale-90 lg:h-10 lg:w-10">
+					class="group h-9 w-9 flex-none rounded-full transition-all focus-visible:outline-offset-[3px] active:scale-90 lg:h-10 lg:w-10">
 					<svg
 						class="h-inherit w-inherit fill-[--color] transition-all group-hover:fill-[--color-dim] group-focus-visible:fill-[--color-dim]">
 						<use href="/icons.svg#x_mark" />

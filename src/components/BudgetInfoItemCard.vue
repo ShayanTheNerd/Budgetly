@@ -39,14 +39,14 @@
 <template>
 	<div
 		:class="{ 'bg-emerald-500': type === 'incomes', 'bg-red-500': type === 'expenses' }"
-		class="scrollbar-hidden flex h-12 items-center justify-between gap-3.5 overflow-x-auto rounded-md px-2.5 text-lg sm:w-1/2 lg:text-xl">
+		class="flex h-12 items-center justify-between gap-3.5 overflow-x-auto rounded-md px-2.5 text-lg sm:w-1/2 lg:text-xl">
 		<p class="w-20 shrink-0 capitalize tracking-wide">{{ type }}</p>
 
-		<p class="text-[21px] font-medium tracking-wide">
+		<p class="overflow-x-clip text-ellipsis text-[21px] font-medium tracking-wide">
 			{{ formatNumber(valueAnimated) }}
 		</p>
 
-		<small :class="type === 'incomes' && 'invisible'" class="w-14 rounded-md bg-slate-300/40">
+		<small :class="type === 'incomes' && 'invisible'" class="min-w-[56px] rounded-md bg-slate-300/40">
 			{{ `${percentagePrefix}${percentageNumber}` }}
 		</small>
 	</div>
