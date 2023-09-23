@@ -87,7 +87,7 @@ Your contribution is always welcome, please follow these steps:
 
 ## Links
 
-Project homepage: https://shayanthenerd.github.io/budgetly <br /><br />
+Project homepage: https://budgetly-expense-tracker.netlify.app <br /><br />
 GitHub repository: https://github.com/ShayanTheNerd/budgetly <br /><br />
 Issues: https://github.com/ShayanTheNerd/budgetly/issues <br /><br />
 Pull requests: https://github.com/ShayanTheNerd/budgetly/pulls <br /><br />
