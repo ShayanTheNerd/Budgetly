@@ -5,7 +5,7 @@ export const useBudgetStore = defineStore('budgetStore', {
 	state: () => ({
 		incomes: [],
 		expenses: [],
-		transitionsConfig: Object.freeze({ transition: [0.55, 0, 0.1, 1], duration: 550 }),
+		transitionsConfig: Object.freeze({ transition: [0.55, 0, 0.1, 1], duration: 650 }),
 	}),
 	getters: {
 		balance() {

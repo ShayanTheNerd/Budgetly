@@ -9,10 +9,6 @@ export default {
 				support: { raw: '(hover: hover)' }, // Check if device supports hover
 			},
 
-			transitionDuration: {
-				700: '700ms',
-			},
-
 			spacing: {
 				inherit: 'inherit',
 			},

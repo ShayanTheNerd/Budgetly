@@ -18,11 +18,11 @@
 	const { theme: { colors: tailwindColors, } } = resolveTailwindConfig(tailwindConfigFile);
 	const budgetStore = useBudgetStore();
 	const items = computed(() => budgetStore.$state[props.type]);
-	const itemSign = props.type === 'incomes' ? '+' : '-';
-	const color = tailwindColors[props.type === 'incomes' ? 'emerald' : 'red'][500];
-	const colorDim = tailwindColors[props.type === 'incomes' ? 'emerald' : 'red'][600];
-	const transitionDuration = `${budgetStore.transitionsConfig.duration}ms`;
-	const transitionTimingFunction = budgetStore.transitionsConfig.transition.join(', ');
+	const itemSign = computed(() => (props.type === 'incomes' ? '+' : '-'));
+	const color = computed(() => tailwindColors[props.type === 'incomes' ? 'emerald' : 'red'][500]);
+	const colorDim = computed(() => tailwindColors[props.type === 'incomes' ? 'emerald' : 'red'][600]);
+	const transitionDuration = computed(() => `${budgetStore.transitionsConfig.duration}ms`);
+	const transitionTimingFunction = computed(() => budgetStore.transitionsConfig.transition.join(', '));
 </script>
 
 <template>

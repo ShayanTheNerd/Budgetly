@@ -1,7 +1,19 @@
 <script setup>
+	import { onMounted } from 'vue';
+	import { useBudgetStore } from './budgetStore';
 	import BudgetInfo from '@/components/BudgetInfo.vue';
 	import BudgetAddItem from '@/components/BudgetAddItem.vue';
 	import BudgetItemsList from '@/components/BudgetItemsList.vue';
+
+	const budgetStore = useBudgetStore();
+	const initialBudgetStoreState = JSON.parse(localStorage.getItem('budgetStore'));
+
+	// Animate numbers on page load
+	budgetStore.$reset();
+	onMounted(() => {
+		budgetStore.$state = initialBudgetStoreState;
+		localStorage.setItem('budgetStore', JSON.stringify(initialBudgetStoreState));
+	});
 </script>
 
 <template>
