@@ -13,6 +13,8 @@
 	const itemNameInput = ref();
 	const itemValueInput = ref();
 
+	onMounted(() => itemNameInput.value.focus());
+
 	function changeItemType() {
 		item.type = item.type === 'incomes' ? 'expenses' : 'incomes';
 		!item.name ? itemNameInput.value.focus() : itemValueInput.value.focus();
@@ -26,8 +28,6 @@
 		item.value = null;
 		itemNameInput.value.focus();
 	}
-
-	onMounted(() => itemNameInput.value.focus());
 </script>
 
 <template>
@@ -52,17 +52,17 @@
 				<div class="me-3.5 ms-4 flex w-full flex-col items-center justify-center gap-3.5 sm:me-2 sm:ms-3 sm:flex-row">
 					<!-- Item name -->
 					<BudgetAddItemInput
-						type="text"
 						ref="itemNameInput"
 						v-model.trim="item.name"
+						type="text"
 						placeholder="Item name"
 						inputmode="text" />
 
 					<!-- Item value -->
 					<BudgetAddItemInput
-						type="number"
 						ref="itemValueInput"
 						v-model.number="item.value"
+						type="number"
 						placeholder="Item value"
 						inputmode="numeric"
 						min="1" />
@@ -70,9 +70,9 @@
 
 				<!-- Submit item button -->
 				<button
+					ref="submitItemBtn"
 					type="submit"
 					title="Submit item"
-					ref="submitItemBtn"
 					class="group h-[41px] w-[41px] transition-transform focus-visible:outline-none active:scale-90 sm:h-11 sm:w-11">
 					<svg
 						aria-hidden="true"

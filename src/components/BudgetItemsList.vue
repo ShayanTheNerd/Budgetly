@@ -12,8 +12,6 @@
 		},
 	});
 
-	const { formatNumber } = useFormatNumber();
-
 	/* prettier-ignore */
 	const { theme: { colors: tailwindColors, } } = resolveTailwindConfig(tailwindConfigFile);
 	const budgetStore = useBudgetStore();
@@ -23,6 +21,8 @@
 	const colorDim = computed(() => tailwindColors[props.type === 'incomes' ? 'emerald' : 'red'][600]);
 	const transitionDuration = computed(() => `${budgetStore.transitionsConfig.duration}ms`);
 	const transitionTimingFunction = computed(() => budgetStore.transitionsConfig.transition.join(', '));
+
+	const { formatNumber } = useFormatNumber();
 </script>
 
 <template>

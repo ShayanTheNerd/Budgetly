@@ -19,9 +19,6 @@
 		},
 	});
 
-	const { formatNumber } = useFormatNumber();
-	const { formatNumber: formatNumberPercent } = useFormatNumber({ style: 'percent' });
-
 	const budgetStore = useBudgetStore();
 	const { value, percentage } = toRefs(props);
 	const valueAnimated = useTransition(value, budgetStore.transitionsConfig);
@@ -34,6 +31,9 @@
 		const percentageValue = Math.floor(percentageAnimated.value || (budgetStore.balance < 0 ? 100 : 0));
 		return formatNumberPercent(Math.min(100, percentageValue));
 	});
+
+	const { formatNumber } = useFormatNumber();
+	const { formatNumber: formatNumberPercent } = useFormatNumber({ style: 'percent' });
 </script>
 
 <template>

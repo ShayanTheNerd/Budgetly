@@ -1,8 +1,8 @@
 <script setup>
 	import { onMounted } from 'vue';
 	import { useBudgetStore } from './budgetStore';
-	import BudgetInfo from '@/components/BudgetInfo.vue';
-	import BudgetAddItem from '@/components/BudgetAddItem.vue';
+	import TheBudgetInfo from '@/components/TheBudgetInfo.vue';
+	import TheBudgetAddItem from '@/components/TheBudgetAddItem.vue';
 	import BudgetItemsList from '@/components/BudgetItemsList.vue';
 
 	const budgetStore = useBudgetStore();
@@ -17,9 +17,9 @@
 </script>
 
 <template>
-	<BudgetInfo />
+	<TheBudgetInfo />
 
-	<BudgetAddItem />
+	<TheBudgetAddItem />
 
 	<!-- Budget items list -->
 	<section class="mx-3 flex grow flex-col pb-5">

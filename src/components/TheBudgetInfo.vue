@@ -6,12 +6,12 @@
 	import BudgetInfoItemCard from './BudgetInfoItemCard.vue';
 	import { useFormatNumber } from '@/composables/useFormatNumber.mjs';
 
-	const { formatNumber } = useFormatNumber({ signDisplay: 'exceptZero' });
-
 	const budgetStore = useBudgetStore();
 	const { currentMachineDate, currentDate } = useDate();
 	const { balance, expensesPercentage } = storeToRefs(budgetStore);
 	const balanceAnimated = useTransition(balance, budgetStore.transitionsConfig);
+
+	const { formatNumber } = useFormatNumber({ signDisplay: 'exceptZero' });
 </script>
 
 <template>
