@@ -12,17 +12,15 @@
 		},
 	});
 
+	const { formatNumber: formatCurrency } = useFormatNumber();
+
 	/* prettier-ignore */
 	const { theme: { colors: tailwindColors, } } = resolveTailwindConfig(tailwindConfigFile);
 	const budgetStore = useBudgetStore();
-	const items = computed(() => budgetStore.$state[props.type]);
-	const itemSign = computed(() => (props.type === 'incomes' ? '+' : '-'));
 	const color = computed(() => tailwindColors[props.type === 'incomes' ? 'emerald' : 'red'][500]);
 	const colorDim = computed(() => tailwindColors[props.type === 'incomes' ? 'emerald' : 'red'][600]);
 	const transitionDuration = computed(() => `${budgetStore.transitionsConfig.duration}ms`);
 	const transitionTimingFunction = computed(() => budgetStore.transitionsConfig.transition.join(', '));
-
-	const { formatNumber } = useFormatNumber();
 </script>
 
 <template>
@@ -32,13 +30,13 @@
 			class="flex list-none items-center justify-between px-1 lg:bg-slate-900 [&::-webkit-details-marker]:hidden">
 			<strong
 				class="w-full pb-2 text-xl font-bold capitalize tracking-wide text-[--color] lg:pb-3.5 lg:text-center lg:text-2xl">
-				{{ props.type }}
+				{{ type }}
 			</strong>
 		</summary>
 
 		<transition-group appear tag="ul" name="fade" class="relative divide-y divide-slate-600">
 			<li
-				v-for="item in items"
+				v-for="item in budgetStore[type]"
 				:key="item"
 				class="flex w-full items-center justify-between gap-3.5 overflow-x-auto bg-slate-800 p-2.5 first-of-type:rounded-t-md last-of-type:rounded-b-md lg:px-3.5 lg:py-3">
 				<!-- Item name -->
@@ -47,7 +45,7 @@
 				<!-- Item value -->
 				<strong
 					class="w-full overflow-x-clip text-ellipsis text-center font-medium tracking-wide text-[--color] sm:text-lg lg:text-xl lg:font-bold">
-					{{ `${itemSign}${formatNumber(item.value)}` }}
+					{{ formatCurrency(item.value) }}
 				</strong>
 
 				<!-- Item delete button -->

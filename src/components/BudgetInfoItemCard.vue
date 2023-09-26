@@ -19,6 +19,9 @@
 		},
 	});
 
+	const { formatNumber: formatCurrency } = useFormatNumber();
+	const { formatNumber: formatPercentage } = useFormatNumber({ style: 'percent' });
+
 	const budgetStore = useBudgetStore();
 	const { value, percentage } = toRefs(props);
 	const valueAnimated = useTransition(value, budgetStore.transitionsConfig);
@@ -29,11 +32,8 @@
 	});
 	const percentageNumber = computed(() => {
 		const percentageValue = Math.floor(percentageAnimated.value || (budgetStore.balance < 0 ? 100 : 0));
-		return formatNumberPercent(Math.min(100, percentageValue));
+		return formatPercentage(Math.min(100, percentageValue));
 	});
-
-	const { formatNumber } = useFormatNumber();
-	const { formatNumber: formatNumberPercent } = useFormatNumber({ style: 'percent' });
 </script>
 
 <template>
@@ -43,7 +43,7 @@
 		<p class="w-20 shrink-0 capitalize tracking-wide">{{ type }}</p>
 
 		<p class="overflow-x-clip text-ellipsis text-[21px] font-medium tracking-wide">
-			{{ formatNumber(valueAnimated) }}
+			{{ formatCurrency(valueAnimated) }}
 		</p>
 
 		<small :class="type === 'incomes' && 'invisible'" class="min-w-[56px] rounded-md bg-slate-300/40">

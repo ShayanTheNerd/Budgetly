@@ -11,7 +11,7 @@
 	const { balance, expensesPercentage } = storeToRefs(budgetStore);
 	const balanceAnimated = useTransition(balance, budgetStore.transitionsConfig);
 
-	const { formatNumber } = useFormatNumber({ signDisplay: 'exceptZero' });
+	const { formatNumber: formatCurrency } = useFormatNumber({ signDisplay: 'exceptZero' });
 </script>
 
 <template>
@@ -25,7 +25,7 @@
 		<strong
 			:class="balanceAnimated === 0 ? 'text-slate-100' : balanceAnimated > 0 ? 'text-emerald-500' : 'text-red-500'"
 			class="mb-6 mt-4 inline-block w-full max-w-sm overflow-x-clip text-ellipsis text-4xl font-medium leading-8 tracking-wide transition-colors sm:max-w-screen-sm">
-			{{ formatNumber(balanceAnimated) }}
+			{{ formatCurrency(balanceAnimated) }}
 		</strong>
 
 		<!-- The total amount of incomes and expenses -->
