@@ -28,8 +28,7 @@
 		<summary
 			tabindex="-1"
 			class="flex list-none items-center justify-between px-1 lg:bg-slate-900 [&::-webkit-details-marker]:hidden">
-			<strong
-				class="w-full pb-2 text-xl font-bold capitalize tracking-wide text-[--color] lg:pb-3.5 lg:text-center lg:text-2xl">
+			<strong class="pb-2 text-xl font-bold capitalize tracking-wide text-[--color] lg:pb-3.5 lg:text-2xl">
 				{{ type }}
 			</strong>
 		</summary>
@@ -38,13 +37,13 @@
 			<li
 				v-for="item in budgetStore[type]"
 				:key="item"
-				class="flex w-full items-center justify-between gap-3.5 overflow-x-auto bg-slate-800 p-2.5 first-of-type:rounded-t-md last-of-type:rounded-b-md lg:px-3.5 lg:py-3">
+				class="flex w-full items-center justify-between gap-4 overflow-x-auto bg-slate-800 p-2.5 first-of-type:rounded-t-md last-of-type:rounded-b-md sm:gap-6 lg:px-3.5 lg:py-3">
 				<!-- Item name -->
-				<p class="max-w-[50%] shrink-0 overflow-clip text-ellipsis tracking-wide lg:font-medium">{{ item.name }}</p>
+				<p class="w-1/2 shrink-0 hyphens-auto break-words tracking-wide lg:font-medium">{{ item.name }}</p>
 
 				<!-- Item value -->
 				<strong
-					class="w-full overflow-x-clip text-ellipsis text-center font-medium tracking-wide text-[--color] sm:text-lg lg:text-xl lg:font-bold">
+					class="w-full overflow-x-clip text-ellipsis text-end font-medium text-[--color] sm:text-lg lg:text-xl lg:font-bold">
 					{{ formatCurrency(item.value) }}
 				</strong>
 
