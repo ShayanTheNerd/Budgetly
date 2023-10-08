@@ -64,7 +64,7 @@
 						v-model.number="item.value"
 						type="number"
 						placeholder="Item value"
-						inputmode="numeric"
+						inputmode="decimal"
 						min="1" />
 				</div>
 
