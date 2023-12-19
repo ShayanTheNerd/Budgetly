@@ -5,20 +5,14 @@ export default {
 	future: { hoverOnlyWhenSupported: true },
 	theme: {
 		extend: {
-			screens: {
-				support: { raw: '(hover: hover)' }, // Check if device supports hover
-			},
-
-			spacing: {
-				inherit: 'inherit',
-			},
-
-			outlineWidth: {
+			ringWidth: {
 				3: '3px',
 			},
-
 			borderWidth: {
 				3: '3px',
+			},
+			spacing: {
+				inherit: 'inherit',
 			},
 		},
 	},

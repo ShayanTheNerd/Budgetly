@@ -20,5 +20,5 @@
 		:value="modelValue"
 		required
 		@input="$emit('update:modelValue', $event.target.value)"
-		class="h-9 w-full rounded-md bg-slate-100 px-2.5 text-slate-900 focus:outline focus:outline-3 focus:outline-[--color] sm:h-11 lg:text-lg" />
+		class="h-9 w-full rounded-md bg-slate-100 px-2.5 text-slate-900 ring-[--color] focus:outline-none focus:ring-3 sm:h-11 lg:text-lg" />
 </template>

@@ -52,7 +52,7 @@
 					type="button"
 					title="Delete item"
 					@click="budgetStore.deleteItem(item)"
-					class="group h-9 w-9 flex-none rounded-full transition-all focus-visible:outline-offset-[3px] active:scale-90 lg:h-10 lg:w-10">
+					class="group h-9 w-9 flex-none rounded-full outline-none transition-all focus-visible:ring-3 focus-visible:ring-[--color-dim] active:scale-90 lg:h-10 lg:w-10">
 					<svg
 						class="h-inherit w-inherit fill-[--color] transition-all group-hover:fill-[--color-dim] group-focus-visible:fill-[--color-dim]">
 						<use href="/icons.svg#x_mark" />
