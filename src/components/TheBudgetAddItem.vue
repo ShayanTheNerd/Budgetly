@@ -41,7 +41,7 @@
 					type="button"
 					title="Change item type"
 					@click="changeItemType()"
-					class="group group flex h-9 w-9 items-center justify-center rounded-md border-3 border-[--color] bg-slate-100 p-3 transition-colors hover:border-[--color-dim] focus-visible:border-[--color-dim] focus-visible:outline-none sm:h-11 sm:w-11">
+					class="group group flex h-9 w-9 items-center justify-center rounded-md border-3.5 border-[--color] bg-slate-100 p-3 transition-colors hover:border-[--color-dim] focus-visible:border-[--color-dim] focus-visible:outline-none sm:h-11 sm:w-11">
 					<svg
 						aria-hidden="true"
 						class="h-6 w-6 shrink-0 stroke-[--color] transition-colors group-hover:stroke-[--color-dim] group-focus-visible:stroke-[--color-dim] sm:h-7 sm:w-7">
@@ -49,7 +49,7 @@
 					</svg>
 				</button>
 
-				<div class="me-3.5 ms-4 flex w-full flex-col items-center justify-center gap-3.5 sm:me-2 sm:ms-3 sm:flex-row">
+				<div class="mx-4 flex w-full flex-col items-center justify-center gap-3.5 sm:me-2 sm:ms-3 sm:flex-row">
 					<!-- Item name -->
 					<BudgetAddItemInput
 						ref="itemNameInput"
@@ -73,7 +73,7 @@
 					ref="submitItemBtn"
 					type="submit"
 					title="Submit item"
-					class="group h-[41px] w-[41px] transition-transform focus-visible:outline-none active:scale-90 sm:h-11 sm:w-11">
+					class="group h-9 w-9 transition-transform focus-visible:outline-none active:scale-95 sm:ms-1 sm:h-11 sm:w-11">
 					<svg
 						aria-hidden="true"
 						class="h-inherit w-inherit stroke-[--color] transition-all group-hover:stroke-[--color-dim] group-focus-visible:stroke-[--color-dim]">

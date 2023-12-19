@@ -9,7 +9,7 @@ export default {
 				3: '3px',
 			},
 			borderWidth: {
-				3: '3px',
+				3.5: '3.5px',
 			},
 			spacing: {
 				inherit: 'inherit',
