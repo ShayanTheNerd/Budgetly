@@ -3,6 +3,7 @@
 	import tailwindConfigFile from '../../tailwind.config.js';
 	import { ref, reactive, computed, onMounted } from 'vue';
 	import resolveTailwindConfig from 'tailwindcss/resolveConfig';
+	import { useIsTouchDevice } from '@/composables/useIsTouchDevice.mjs';
 	import BudgetAddItemInput from '@/components/BudgetAddItemInput.vue';
 
 	/* prettier-ignore */
@@ -13,7 +14,10 @@
 	const itemNameInput = ref();
 	const itemValueInput = ref();
 
-	onMounted(() => itemNameInput.value.focus());
+	onMounted(() => {
+		const { isTouchDevice } = useIsTouchDevice();
+		if (!isTouchDevice) itemNameInput.value.focus();
+	});
 
 	function changeItemType() {
 		item.type = item.type === 'incomes' ? 'expenses' : 'incomes';
