@@ -12,6 +12,16 @@
 		appearance: textfield;
 		-moz-appearance: textfield;
 	}
+
+	/* Remove scrollbar width to prevent layout shift on desktop */
+	@screen lg {
+		html {
+			scrollbar-width: none;
+		}
+		html::-webkit-scrollbar {
+			width: 0;
+		}
+	}
 }
 
 @layer utilities {
