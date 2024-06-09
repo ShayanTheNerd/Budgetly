@@ -1,7 +1,7 @@
 <script setup>
 	import { computed, toRefs } from 'vue';
 	import { useTransition } from '@vueuse/core';
-	import { useBudgetStore } from '../budgetStore.js';
+	import { useBudgetStore } from '@/budgetStore.js';
 	import { useFormatNumber } from '@/composables/useFormatNumber.mjs';
 
 	const props = defineProps({
@@ -28,7 +28,14 @@
 	const percentageAnimated = useTransition(percentage, budgetStore.transitionsConfig);
 	const percentagePrefix = computed(() => {
 		const totalExpenses = budgetStore.getTotal('expenses');
-		return percentageAnimated.value > 100 ? '+' : totalExpenses === 0 ? '' : '~';
+
+		if (percentageAnimated.value > 100) {
+			return '+';
+		} else if (totalExpenses === 0) {
+			return '';
+		} else {
+			return '~';
+		}
 	});
 	const percentageNumber = computed(() => {
 		const percentageValue = Math.floor(percentageAnimated.value || (budgetStore.balance < 0 ? 100 : 0));
